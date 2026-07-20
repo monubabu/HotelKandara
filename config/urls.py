@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/users/", include("apps.users.urls")),
-   # path("api/hotel/", include("apps.hotel.urls")),
-   # path('api/bookings/', include('apps.booking.urls')),
+    path("api/hotel/", include("apps.hotel.urls")),
+    path('api/bookings/', include('apps.booking.urls')),
 ]
 
 if settings.DEBUG:
