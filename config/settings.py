@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,12 +44,24 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
+    'channels',
+    'drf_spectacular',
 
     # Locals Apps
     'apps.users',
     'apps.hotel',
     'apps.booking',
 ]
+
+# ASGI Configurations
+ASGI_APPLICATION = 'config.asgi.application'
+
+#In-memory channel layer
+CHANNELS_LAYERS = {
+      'default':{
+            'BACKEND' : 'channels.layers.InMemoryChannelLayer'
+      },
+}
 
 
 MIDDLEWARE = [
@@ -68,7 +81,14 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
       'DEFAULT_AUTHENTICATION_CLASSES':(
             'rest_framework_simplejwt.authentication.JWTAuthentication',
-      )
+      ),
+      'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+      'TITLE':'Hotel Kandara API',
+      'DESCRIPTION': 'API documentation for Hotel Kandara',
+      'VERSION':'1.0.0',
+      'SERVICE_INCLUDE_SCHEMA': False,
 }
 # Configuration of JWT token lifetimes
 SIMPLE_JWT ={
@@ -81,6 +101,7 @@ CORS_ALLOWED_ORIGINS =[
     "http://localhost:3000",  # React default
     "http://127.0.0.1:5173",  # Vite default
 ]
+
 
 ROOT_URLCONF = 'config.urls'
 

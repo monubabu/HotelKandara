@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Amenity, RoomType, Room
+from typing import Optional
+from drf_spectacular.utils import extend_schema_field
 
 class AmenitySerializer(serializers.ModelSerializer):
       class Meta:
@@ -14,12 +16,12 @@ class RoomTypeSerializer(serializers.ModelSerializer):
       class Meta:
             model = RoomType
             fields = ['id','name','description','price_per_night','max_capacity','amenities','image_url']
-
-      def get_image_url(self,obj):
+      @extend_schema_field(serializers.URLField())
+      def get_image_url(self,obj)->Optional[str]:
             # Generates a full HTTP path to the image
             request = self.context.get('request')
             if obj.image and request:
-                  return request.build_absolut_uri(obj.image.url)
+                  return request.build_absolute_uri(obj.image.url)
             return None
       
 class RoomSerializer(serializers.ModelSerializer):
