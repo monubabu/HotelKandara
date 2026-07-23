@@ -8,5 +8,5 @@ class IsStaffUser(BasePermission):
             return bool(
                   request.user and
                   request.user.is_authenticated and
-                  (request.user.is_staff or request.user.role in ['receiptionist','manager'])
+                  (request.user.is_staff or request.user.role in ['receptionist','manager'])
             )

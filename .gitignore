@@ -216,8 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
 .env
 
 
-# Coverage
-C:\Users\monub\Desktop\HotelKandara\htmlcov
+
+.git/
+.venv/
+htmlcov/
+.coverage
+.dockerignore
